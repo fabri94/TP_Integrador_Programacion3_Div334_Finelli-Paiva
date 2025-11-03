@@ -21,8 +21,9 @@ function mostrarProductos(productos){
     productos.forEach(prod =>{
         htmlProductos += `
         <div class="card-producto">
-            <img src="${prod.imagen}" alt="${prod.nombre}">
-            <h3>${prod.nombre}</h3> 
+            <img src="${prod.imagen}" alt="${prod.marca}">
+            <h3>Marca: ${prod.marca}</h3>
+            <h4>Modelo: ${prod.modelo}</h4> 
             <p>$${prod.precio}</p>
         </div>
         `
