@@ -49,6 +49,29 @@ app.get("/products", async (req,res) =>{
     }
 });
 
+app.get("/products/:id", async (req,res) =>{
+    
+    
+    try{
+        let { id } = req.params;
+        const sql = "SELECT * FROM productos WHERE productos.id = ?";
+        
+        let [rows]= await connection.query(sql, [id]); //rows con destructuring devuelve solo las datos del producto sin la información del field
+        
+        console.log(rows);
+        
+        res.status(200).json({
+            payload : rows
+        })
+        
+    }catch(error){
+        console.error("Error obteniendo productos con id",error.message);
+    
+        res.status(500).json({
+            message : "Error interno al obtener productos con id"
+        });
+    }
+});
 
 
 app.listen(PORT, ()=>{
