@@ -127,3 +127,45 @@ button {
 button:hover {
   background-color: #2f9400;
 }
+
+/* ||||||||||||||||||||||||||||||||||||||||||||||| ADMIN VIEW ||||||||||||||||||||||||||||||||||||||||||||||| */
+
+
+/* BARRA DE NAVEGACIÓN */
+
+
+.admin-nav{
+    background-color: #284b63;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+}
+.html-links{
+    color: white;
+    text-decoration: none;
+}
+
+/* LINKS */
+.html-links:hover{
+    text-decoration: underline;
+}
+
+/* MAIN*/
+
+body{
+    background-color: #353535;
+}
+
+.admin-main{
+    color: white;
+    display: flex;
+    align-items: center;   
+}
+
+#contenedor-productos-id{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}

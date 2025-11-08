@@ -1,9 +1,40 @@
 let contenedorProductos = document.getElementById("contenedor-productos");
+let contenedorProductosPorId = document.getElementById("contenedor-productos-id");
+let formProductosPorId = document.getElementById("input");
+
+let url = "http://localhost:3000/products";
+
+formProductosPorId.addEventListener("submit", (event) => {
+    event.preventDefault();
+    alert("Formulario no enviado");
+
+    let formData = new FormData(event.target);
+    let data = Object.fromEntries(formData.entries());
+    let idProd = data.id;
+    console.log(data)
+    console.log(idProd)
+    obtenerProductosPorId(idProd);
+})
 
 async function obtenerProductos(){
 
     try{
         let respuesta = await fetch("http://localhost:3000/products");
+        let respuestaFormato = await respuesta.json();
+        let productos = respuestaFormato.payload;
+        console.table(productos);
+
+        mostrarProductos(productos);
+
+    }catch(error){
+        console.error(error);
+    }
+}
+
+async function obtenerProductosPorId(id){
+
+    try{
+        let respuesta = await fetch(`${url}/${id}`);
         let respuestaFormato = await respuesta.json();
         let productos = respuestaFormato.payload;
         console.table(productos);
@@ -27,12 +58,12 @@ function mostrarProductos(productos){
             <p>$${prod.precio}</p>
         </div>
         `
-        contenedorProductos.innerHTML= htmlProductos;
+        contenedorProductosPorId.innerHTML= htmlProductos;
     })
 }
 
 function init(){
-    obtenerProductos();
+    //obtenerProductos();
 }
 
 init();
