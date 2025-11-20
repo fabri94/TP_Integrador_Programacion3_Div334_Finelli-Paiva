@@ -104,6 +104,35 @@ app.post("/products", async (req,res)=>{
     }
 });
 
+app.delete("/products/:id", async(req,res)=>{
+    try{
+        let { id } = req.params;
+
+        //opcion 1 : borrado normal
+        let sql = "DELETE FROM productos WHERE productos.id = ?";
+        //opcion 2 : baja logica
+        //let sql = `UPDATE productos set active = 0 WHERE id = ?`
+        let [resultado] = await connection.query(sql,[id]);;
+        console.log(resultado);
+
+        if(resultado.affectedRows === 0){
+            return res.status(400).json({
+                message : "No se elimino el producto"
+            });
+        }
+
+        res.status(200).json({
+            message : `Producto con id ${id} eliminado correctamente`
+        });
+    }catch(error){
+        console.error(`Error al eliminar un producto:`,error);        
+        res.status(500).json({
+            message : `Error al eliminar un producto con id ${id}`, error,
+            error :error.message
+        });
+    }
+});
+
 app.listen(PORT, ()=>{
     console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
