@@ -26,18 +26,18 @@ app.get("/", (req, res) =>{
 });
 
 
-//Traer todos los productos
+//Devuelve todos los productos de la BBDD
 app.get("/products", async (req,res) =>{
     
     try{
-        const sql = "SELECT * FROM productos";
+        let sql = "SELECT * FROM productos";
         
-        const [rows]= await connection.query(sql);
+        let [resultado]= await connection.query(sql);
         
-        console.log(rows);
+        console.log(resultado);
         
         res.status(200).json({
-            payload : rows
+            payload : resultado
         })
         
     }catch(error){
@@ -49,19 +49,24 @@ app.get("/products", async (req,res) =>{
     }
 });
 
+//Devuelve un producto en especifico de la BBDD que coincide con el ID ingresado
 app.get("/products/:id", async (req,res) =>{
     
     
     try{
         let { id } = req.params;
-        const sql = "SELECT * FROM productos WHERE productos.id = ?";
+        let sql = "SELECT * FROM productos WHERE productos.id = ?";
         
-        let [rows]= await connection.query(sql, [id]); //rows con destructuring devuelve solo las datos del producto sin la información del field
+        let [resultado]= await connection.query(sql, [id]); //resultado con destructuring devuelve solo las datos del producto sin la información del field
+        console.log(resultado);
         
-        console.log(rows);
+        if (resultado.length === 0){
+            return res.status(404).json({ message: "Producto no encontrado" });
+        }
+
         
         res.status(200).json({
-            payload : rows
+            payload : resultado
         })
         
     }catch(error){
@@ -73,13 +78,14 @@ app.get("/products/:id", async (req,res) =>{
     }
 });
 
+//Crea y hace una nueva insercion de un producto en la BBDD
 app.post("/products", async (req,res)=>{
     try {
         //gracias al destructuring recogemos estos datos del cuerpo de la peticion HTTP. distinto a lo que sucede en el get que viene en la URL
         let {imagen,nombre,precio,tipo} = req.body;
 
         //Optimizacion -> validacion de datos de entrada
-        if(!imagen || !nombre || !precio || !tipo){
+        if(!imagen || !nombre || precio === undefined || precio === null || !tipo){
             return res.status(400).json({
                 message: `Datos invalidos. Completar todos los campos correctamente`
             });
@@ -104,6 +110,11 @@ app.post("/products", async (req,res)=>{
     }
 });
 
+/*
+Elimina un producto de la BBDD por el ID ingresado (tal como esta implementado ahora)
+NOTA: Si hay que respetar a rajatabla el TP, hay que hacer una baja logica mas bien (ver opcion 2 dentro del scope)
+Que pase el estado del producto a inactivo (booleano)
+*/
 app.delete("/products/:id", async(req,res)=>{
     try{
         let { id } = req.params;
@@ -132,6 +143,48 @@ app.delete("/products/:id", async(req,res)=>{
         });
     }
 });
+
+/*Actualiza un producto ya existente en la BBDD
+NOTA: Este endpoint recibe el ID por el body de la peticion. 
+Por eso la url del endpoint no es "/products/:id" como sucede en el getById y el delete
+*/
+
+app.put("/products", async(req,res)=>{
+    try {
+        let { id, nombre, imagen, tipo, precio, activo } = req.body;
+
+        let sql = `
+        UPDATE productos
+        SET nombre = ?, imagen = ?, tipo = ?, precio = ?, activo = ?
+        WHERE id = ?
+        `;
+
+        if(!id || !nombre || !imagen || !tipo || precio == null || activo == null){
+            return res.status(400).json({
+                message : "Faltan campos requeridos"
+            });
+        }
+
+        let [resultado] = await connection.query(sql, [nombre, imagen, tipo, precio, activo, id]);
+        console.log(resultado);
+
+        if(resultado.affectedRows === 0){
+            return res.status(400).json({
+                message : "No se actualizo el producto"
+            });
+        }
+        
+        res.status(200).json({
+            message : `Producto con id ${id} actualizado correctamente`
+        });      
+    } catch (error) {
+        console.error(`Error al actualizar producto:`,error);        
+        res.status(500).json({
+            message : "Error interno del servidor", error
+        });
+    }
+});
+
 
 app.listen(PORT, ()=>{
     console.log(`Servidor corriendo en el puerto ${PORT}`);
