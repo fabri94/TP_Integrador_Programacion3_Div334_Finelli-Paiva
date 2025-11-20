@@ -73,6 +73,36 @@ app.get("/products/:id", async (req,res) =>{
     }
 });
 
+app.post("/products", async (req,res)=>{
+    try {
+        //gracias al destructuring recogemos estos datos del cuerpo de la peticion HTTP. distinto a lo que sucede en el get que viene en la URL
+        let {imagen,nombre,precio,tipo} = req.body;
+
+        //Optimizacion -> validacion de datos de entrada
+        if(!imagen || !nombre || !precio || !tipo){
+            return res.status(400).json({
+                message: `Datos invalidos. Completar todos los campos correctamente`
+            });
+        }
+        let sql = `INSERT INTO productos (imagen, nombre, precio, tipo) VALUES (?,?,?,?)`;
+
+        let [resultado] = await connection.query(sql,[imagen,nombre,precio,tipo]);
+        console.log(resultado);
+                
+        //CODIGO DE ESTADO 201 -> CREATED
+        res.status(201).json({
+            message : "Producto creado con exito",
+            idProducto : resultado.insertId
+        });
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message : "Error interno del servidor",
+            error : error.message
+        })
+    }
+});
 
 app.listen(PORT, ()=>{
     console.log(`Servidor corriendo en el puerto ${PORT}`);
