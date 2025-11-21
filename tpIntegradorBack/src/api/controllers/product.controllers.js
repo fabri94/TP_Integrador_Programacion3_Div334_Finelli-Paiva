@@ -58,9 +58,8 @@ export const createProduct = async (req,res)=>{
                 message: `Datos invalidos. Completar todos los campos correctamente`
             });
         }
-        let sql = `INSERT INTO productos (imagen, nombre, precio, tipo) VALUES (?,?,?,?)`;
-
-        let [resultado] = await connection.query(sql,[imagen,nombre,precio,tipo]);
+        
+        let [resultado] = await ProductModel.insertProduct(imagen,nombre,precio,tipo);
         console.log(resultado);
                 
         //CODIGO DE ESTADO 201 -> CREATED

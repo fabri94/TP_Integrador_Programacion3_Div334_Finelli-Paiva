@@ -12,7 +12,14 @@ const selectProductWhereId = (id) =>{
     return connection.query(sql, [id]);
 }
 
+const insertProduct = (imagen, nombre, precio, tipo) =>{
+    let sql = `INSERT INTO productos (imagen, nombre, precio, tipo) VALUES (?,?,?,?)`;
+
+    return connection.query(sql,[imagen,nombre,precio,tipo]);
+}
+
 export default{
     selectAllProducts,
-    selectProductWhereId
+    selectProductWhereId,
+    insertProduct
 };
