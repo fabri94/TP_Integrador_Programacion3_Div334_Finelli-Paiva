@@ -10,17 +10,26 @@ import connection from "./src/api/database/db.js"
 const PORT = environments.port;
 
 import cors from "cors";
+import { loggerUrl, validateId } from "./src/api/middlewares/middlewares.js";
 
 /*======================
-    Middleware
+    Middlewares
 ======================*/
 
+//MW de app que habilita CORS:Evita que el navegador bloquee solicitudes desde otros orígenes.
+//Permite que cualquier frontend (localhost:3000, 5173, etc.) acceda a esta API.
 app.use(cors());
+
+//MW de app que transforma el JSON de las peticiones POST y PUT a objetos JavaScript
+app.use(express.json());
+
+app.use(loggerUrl);
+
 /*======================
     Endpoints
 ======================*/
 
-
+//Endpoint simple de prueba
 app.get("/", (req, res) =>{
     res.send("Hola mundo desde Express.js");
 });
@@ -50,9 +59,8 @@ app.get("/products", async (req,res) =>{
 });
 
 //Devuelve un producto en especifico de la BBDD que coincide con el ID ingresado
-app.get("/products/:id", async (req,res) =>{
-    
-    
+app.get("/products/:id", validateId, async (req,res) =>{
+
     try{
         let { id } = req.params;
         let sql = "SELECT * FROM productos WHERE productos.id = ?";
@@ -80,6 +88,7 @@ app.get("/products/:id", async (req,res) =>{
 
 //Crea y hace una nueva insercion de un producto en la BBDD
 app.post("/products", async (req,res)=>{
+
     try {
         //gracias al destructuring recogemos estos datos del cuerpo de la peticion HTTP. distinto a lo que sucede en el get que viene en la URL
         let {imagen,nombre,precio,tipo} = req.body;
@@ -115,7 +124,8 @@ Elimina un producto de la BBDD por el ID ingresado (tal como esta implementado a
 NOTA: Si hay que respetar a rajatabla el TP, hay que hacer una baja logica mas bien (ver opcion 2 dentro del scope)
 Que pase el estado del producto a inactivo (booleano)
 */
-app.delete("/products/:id", async(req,res)=>{
+app.delete("/products/:id", validateId, async(req,res)=>{
+
     try{
         let { id } = req.params;
 
@@ -150,6 +160,7 @@ Por eso la url del endpoint no es "/products/:id" como sucede en el getById y el
 */
 
 app.put("/products", async(req,res)=>{
+
     try {
         let { id, nombre, imagen, tipo, precio, activo } = req.body;
 
