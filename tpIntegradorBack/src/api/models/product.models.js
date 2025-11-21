@@ -18,8 +18,18 @@ const insertProduct = (imagen, nombre, precio, tipo) =>{
     return connection.query(sql,[imagen,nombre,precio,tipo]);
 }
 
+const deleteProduct = (id) =>{
+    //opcion 1 : borrado normal
+    let sql = "DELETE * FROM productos WHERE productos.id = ?";
+
+    //opcion 2 : baja logica
+    //let sql = `UPDATE productos set active = 0 WHERE id = ?`
+    return connection.query(sql,[id]);
+}
+
 export default{
     selectAllProducts,
     selectProductWhereId,
-    insertProduct
+    insertProduct,
+    deleteProduct
 };

@@ -81,12 +81,8 @@ export const removeProduct = async(req,res)=>{
 
     try{
         let { id } = req.params;
-
-        //opcion 1 : borrado normal
-        let sql = "DELETE FROM productos WHERE productos.id = ?";
-        //opcion 2 : baja logica
-        //let sql = `UPDATE productos set active = 0 WHERE id = ?`
-        let [resultado] = await connection.query(sql,[id]);;
+        
+        let [resultado] = await ProductModel.deleteProduct(id);
         console.log(resultado);
 
         if(resultado.affectedRows === 0){
