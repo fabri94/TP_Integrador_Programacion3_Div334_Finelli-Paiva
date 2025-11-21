@@ -163,3 +163,5 @@ router.put("/products", async(req,res)=>{
         });
     }
 });
+
+export default router;
