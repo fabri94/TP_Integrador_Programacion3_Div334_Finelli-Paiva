@@ -24,25 +24,24 @@ export const getProductById = async (req,res) =>{
 
     try{
         let { id } = req.params;
-        let sql = "SELECT * FROM productos WHERE productos.id = ?";
         
-        let [resultado]= await connection.query(sql, [id]); //resultado con destructuring devuelve solo las datos del producto sin la información del field
-        console.log(resultado);
+        let [resultado]= await ProductModel.selectProductWhereId(id); //resultado con destructuring devuelve solo las datos del producto sin la información del field
         
         if (resultado.length === 0){
-            return res.status(404).json({ message: "Producto no encontrado" });
+            return res.status(404).json({ message: `Producto con ID ${id}, no encontrado` });
         }
-
-        
+                
+        console.log(resultado);
         res.status(200).json({
-            payload : resultado
-        })
+            payload : resultado,
+            message : "Producto encontrado"
+        });
         
     }catch(error){
-        console.error("Error obteniendo productos con id",error.message);
+        console.error(`Error obteniendo producto con id: ${id}`,error.message);
     
         res.status(500).json({
-            message : "Error interno al obtener productos con id"
+            message : "Error interno al obtener producto con id"
         });
     }
 };
