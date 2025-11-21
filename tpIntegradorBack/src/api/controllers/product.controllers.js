@@ -1,15 +1,15 @@
+import ProductModel from "../models/product.models.js"
+
 export const getProducts = async (req,res) =>{
-    
-    try{
-        let sql = "SELECT * FROM productos";
-        
-        let [resultado]= await connection.query(sql);
+    try{      
+        let [resultado]= await ProductModel.selectAllProducts();
         
         console.log(resultado);
         
         res.status(200).json({
-            payload : resultado
-        })
+            payload : resultado,
+            message: rows.length === 0 ? "No se encontraron productos" : "Productos encontrados"
+        });
         
     }catch(error){
         console.error("Error obteniendo productos",error.message);
