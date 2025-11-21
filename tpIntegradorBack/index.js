@@ -6,7 +6,6 @@ import express from "express";
 const app = express();
 
 import environments from "./src/api/config/environments.js"; //importamos las variables de entorno 
-import connection from "./src/api/database/db.js"
 const PORT = environments.port;
 
 import cors from "cors";
