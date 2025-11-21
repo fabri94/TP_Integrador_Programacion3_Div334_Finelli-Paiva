@@ -10,7 +10,8 @@ import connection from "./src/api/database/db.js"
 const PORT = environments.port;
 
 import cors from "cors";
-import { loggerUrl, validateId } from "./src/api/middlewares/middlewares.js";
+import { loggerUrl } from "./src/api/middlewares/middlewares.js";
+import { rutasProducto } from "./src/api/routes/index.js";
 
 /*======================
     Middlewares
@@ -24,6 +25,12 @@ app.use(cors());
 app.use(express.json());
 
 app.use(loggerUrl);
+
+/*======================
+    Rutas
+======================*/
+
+app.use("/api/products", rutasProducto);
 
 /*======================
     Endpoints
