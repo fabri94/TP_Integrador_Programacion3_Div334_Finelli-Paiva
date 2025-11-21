@@ -108,19 +108,13 @@ export const modifyProduct = async(req,res)=>{
     try {
         let { id, nombre, imagen, tipo, precio, activo } = req.body;
 
-        let sql = `
-        UPDATE productos
-        SET nombre = ?, imagen = ?, tipo = ?, precio = ?, activo = ?
-        WHERE id = ?
-        `;
-
         if(!id || !nombre || !imagen || !tipo || precio == null || activo == null){
             return res.status(400).json({
                 message : "Faltan campos requeridos"
             });
         }
 
-        let [resultado] = await connection.query(sql, [nombre, imagen, tipo, precio, activo, id]);
+        let [resultado] = await ProductModel.updateProduct(nombre, imagen, tipo, precio, activo, id);
         console.log(resultado);
 
         if(resultado.affectedRows === 0){
