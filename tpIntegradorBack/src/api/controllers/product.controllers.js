@@ -50,16 +50,16 @@ export const createProduct = async (req,res)=>{
 
     try {
         //gracias al destructuring recogemos estos datos del cuerpo de la peticion HTTP. distinto a lo que sucede en el get que viene en la URL
-        let {imagen,nombre,precio,tipo} = req.body;
+        let {tipo, marca, modelo, precio, activo, imagen, arquitectura} = req.body;
 
         //Optimizacion -> validacion de datos de entrada
-        if(!imagen || !nombre || precio === undefined || precio === null || !tipo){
+        if(!tipo || !marca || !modelo || precio === undefined || precio === null || activo === undefined || activo === null || !imagen || !arquitectura){
             return res.status(400).json({
                 message: `Datos invalidos. Completar todos los campos correctamente`
             });
         }
         
-        let [resultado] = await ProductModel.insertProduct(imagen,nombre,precio,tipo);
+        let [resultado] = await ProductModel.insertProduct(tipo, marca, modelo, precio, activo, imagen, arquitectura);
         console.log(resultado);
                 
         //CODIGO DE ESTADO 201 -> CREATED

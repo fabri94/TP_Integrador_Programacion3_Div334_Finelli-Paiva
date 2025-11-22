@@ -12,15 +12,15 @@ const selectProductWhereId = (id) =>{
     return connection.query(sql, [id]);
 }
 
-const insertProduct = (imagen, nombre, precio, tipo) =>{
-    let sql = `INSERT INTO productos (imagen, nombre, precio, tipo) VALUES (?,?,?,?)`;
+const insertProduct = (tipo, marca, modelo, precio, activo, imagen, arquitectura) =>{
+    let sql = `INSERT INTO productos (tipo, marca, modelo, precio, activo, imagen, arquitectura) VALUES (?,?,?,?,?,?,?)`;
 
-    return connection.query(sql,[imagen,nombre,precio,tipo]);
+    return connection.query(sql,[tipo, marca, modelo, precio, activo, imagen, arquitectura]);
 }
 
 const deleteProduct = (id) =>{
     //opcion 1 : borrado normal
-    let sql = "DELETE * FROM productos WHERE productos.id = ?";
+    let sql = "DELETE FROM productos WHERE productos.id = ?";
     //opcion 2 : baja logica
     //let sql = `UPDATE productos set active = 0 WHERE id = ?`
     return connection.query(sql,[id]);

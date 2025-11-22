@@ -1,8 +1,8 @@
-let contenedorProductos = document.getElementById("contenedor-productos");
 let contenedorProductosPorId = document.getElementById("contenedor-productos-id");
 let formProductosPorId = document.getElementById("input");
 
 let url = "http://localhost:3000/api/products";
+
 
 formProductosPorId.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -16,20 +16,6 @@ formProductosPorId.addEventListener("submit", (event) => {
     obtenerProductosPorId(idProd);
 })
 
-async function obtenerProductos(){
-
-    try{
-        let respuesta = await fetch(url);
-        let respuestaFormato = await respuesta.json();
-        let productos = respuestaFormato.payload;
-        console.table(productos);
-
-        mostrarProductos(productos);
-
-    }catch(error){
-        console.error(error);
-    }
-}
 
 async function obtenerProductosPorId(id){
 

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- CONEXIONES -->
-    <script defer src="js/main.js"></script>
+    <script defer src="js/consultarPorId.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -14,20 +14,19 @@
             <!-- BARRA DE NAVEGACIÓN -->
              <ul>
                 <li><a class="html-links" href="consultarAdmin.html">Ver</a></li>
-                <li><a class="html-links" href="buscarIdAdmin.html"></a>Consultar Id</li>
-                <li>Crear</li>
+                <li><a class="html-links" href="buscarIdAdmin.html">Consultar Id</a></li>
+                <li><a class="html-links" href="crearAdmin.html">Crear</a></li>
                 <li>Modificar</li>
-                <li>Eliminar</li>
+                <li><a class="html-links" href="eliminarAdmin.html">Eliminar</a></li>
             </ul>
         </nav>
     </header>
     <main class="admin-main">     
-        
         <h1>Buscar elemento por id de producto</h1>
         <form id="input">
             <label for="id">Id del producto: </label>
-            <input type="text" id="id" name="fname">
-            <input type="submit" value="Buscar">
+            <input type="text" id="id" name="id">
+            <input type="submit" value="Buscar"> <!-- envía los datos del form(específicamente el texto del input del input) -->
         </form> 
         <div id="contenedor-productos-id">
         </div>

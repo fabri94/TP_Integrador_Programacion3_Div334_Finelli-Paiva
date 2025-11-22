@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- CONEXIONES -->
-    <script defer src="js/consultar.js"></script>
+    
+    <script defer src="js/eliminar.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -21,9 +22,15 @@
             </ul>
         </nav>
     </header>
-    <main class="admin-main">
-        <h1>Lista de productos</h1>        
-        <div id="contenedor-productos"></div>
+    <main class="admin-main">     
+        <h1>Buscar elemento por id de producto</h1>
+        <form id="input">
+            <label for="id">Id del producto: </label>
+            <input type="text" id="id" name="id">
+            <input type="submit" value="Buscar"> <!-- envía los datos del form(específicamente el texto del input del input) -->
+        </form> 
+        <div id="contenedor-productos-id">
+        </div>
     </main>
 </body>
 </html>

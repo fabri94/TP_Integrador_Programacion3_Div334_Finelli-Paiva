@@ -157,15 +157,19 @@ body{
     background-color: #353535;
 }
 
-.admin-main{
+.admin-main, .admin-create{
     color: white;
     display: flex;
     align-items: center;   
 }
 
-#contenedor-productos-id{
+#contenedor-productos-id, #altaProducts-form{
     display: flex;
-    align-items: center;
     justify-content: center;
     flex-direction: column;
+}
+
+
+label,input{
+    margin: 0.2rem;
 }
