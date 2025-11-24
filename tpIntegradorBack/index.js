@@ -10,7 +10,7 @@ const PORT = environments.port;
 
 import cors from "cors";
 import { loggerUrl } from "./src/api/middlewares/middlewares.js";
-import { rutasProducto } from "./src/api/routes/index.js";
+import { rutasProducto, rutasVista } from "./src/api/routes/index.js";
 import { join, __dirname } from "./src/api/utils/index.js";
 
 /*======================
@@ -43,27 +43,26 @@ app.set("views", join(__dirname, "src/views")); //Indicamos las rutas de las vis
 
 app.use("/api/products", rutasProducto);
 
-//Rutas de las vistas 
-
-app.get("/dashboard", (req, res) =>{ //Seria igual a que la dirección localhost:3000/dashboard abra el index.ejs
+app.get("/index", (req, res) =>{ //Seria igual a que la dirección localhost:3000/dashboard abra el index.ejs
     res.render("index") //Renderiza una vista ejs
-})
+});
 
 app.get("/search", (req, res) =>{ //Seria igual a que la dirección localhost:3000/dashboard abra el index.ejs
     res.render("search") //Renderiza una vista ejs
-})
+});
 
 app.get("/create", (req, res) =>{ //Seria igual a que la dirección localhost:3000/dashboard abra el index.ejs
     res.render("create") //Renderiza una vista ejs
-})
+});
 
 app.get("/eliminate", (req, res) =>{ //Seria igual a que la dirección localhost:3000/dashboard abra el index.ejs
     res.render("eliminate") //Renderiza una vista ejs
-})
+});
 
 app.get("/update", (req, res) =>{ //Seria igual a que la dirección localhost:3000/dashboard abra el index.ejs
     res.render("update") //Renderiza una vista ejs
-})
+});
+
 
 /*======================
     Endpoints

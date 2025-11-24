@@ -30,7 +30,7 @@ async function crearObjeto(data) {
 
     if (response.ok) {
         console.log(result.message);
-        alert(`Producto creado con exito con id: ${result.productId}`);
+        alert(`Producto creado con exito con id: ${result.idProducto}`);
     } else {
 
     }

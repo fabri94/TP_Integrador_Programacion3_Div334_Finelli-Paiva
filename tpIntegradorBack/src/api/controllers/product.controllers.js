@@ -64,7 +64,7 @@ export const createProduct = async (req,res)=>{
                 
         //CODIGO DE ESTADO 201 -> CREATED
         res.status(201).json({
-            message : "Producto creado con exito",
+            message : "Producto creado con éxito",
             idProducto : resultado.insertId
         });
     } catch (error) {

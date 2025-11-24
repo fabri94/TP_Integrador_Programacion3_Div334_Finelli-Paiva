@@ -2,8 +2,10 @@
 
 import rutasProducto from "./product.routes.js";
 //Se importan todas las rutas de producto que se definieron en "product.routes.js"
+import rutasVista from "./view.routes.js";
 
 
 export{
-    rutasProducto
+    rutasProducto,
+    rutasVista
 };
