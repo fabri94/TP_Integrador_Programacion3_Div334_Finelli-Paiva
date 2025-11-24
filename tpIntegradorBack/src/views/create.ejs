@@ -1,0 +1,41 @@
+
+<%- include("partials/head.ejs") %>
+<body>
+    <%- include("partials/nav.ejs") %>
+    <main class="admin-create">     
+        <h1>Crear un producto</h1>
+        <form id="altaProducts-form">
+
+            <label for="typeProd">Tipo:</label>
+            <select name="tipo" id="typeProd" required>
+                <option value="Motherboard">Motherboard</option>
+                <option value="GPU">GPU</option>
+            </select>
+
+            <label for="marcaProd">Marca: </label>
+            <input type="text" name="marca" id="marcaProd" required>
+
+            <label for="modeloProd">Modelo: </label>
+            <input type="text" name="modelo" id="modeloProd" required>
+
+            <label for="priceProd">Precio</label>
+            <input type="number" name="precio" id="priceProd" required>
+
+            <label for="actProd">Activo:</label>
+            <select name="activo" id="actProd" required>
+                <option value="0">0</option>
+                <option value="1">1</option>
+            </select>
+            
+            <label for="imagenProd">Url imagen: </label>
+            <input type="text" name="imagen" id="imagenProd" required>
+
+            <label for="arqProd">Arquitectura: </label>
+            <input type="text" name="arquitectura" id="arqProd" required>
+
+            <br>
+            <input type="submit" value="Crear producto">
+        </form> 
+    </main>
+    <script  src="js/crear.js"></script>
+<%- include("partials/footer.ejs") %>
