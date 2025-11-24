@@ -26,14 +26,14 @@ const deleteProduct = (id) =>{
     return connection.query(sql,[id]);
 }
 
-const updateProduct = (nombre, imagen, tipo, precio, activo, id)=>{
+const updateProduct = (tipo, marca, modelo, precio, activo, imagen, arquitectura, id)=>{
     let sql = `
     UPDATE productos
-    SET nombre = ?, imagen = ?, tipo = ?, precio = ?, activo = ?
+    SET tipo = ?, marca = ?, modelo = ?, precio = ?, activo = ?, imagen = ?, arquitectura = ?
     WHERE id = ?
     `;
 
-    return connection.query(sql,[nombre, imagen, tipo, precio, activo, id]);
+    return connection.query(sql,[tipo, marca, modelo, precio, activo, imagen, arquitectura, id]);
 }
 
 export default{
