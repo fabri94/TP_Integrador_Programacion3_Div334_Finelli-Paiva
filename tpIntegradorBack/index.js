@@ -22,7 +22,7 @@ import { join, __dirname } from "./src/api/utils/index.js";
 app.use(cors());
 
 //MW de app que transforma el JSON de las peticiones POST y PUT a objetos JavaScript
-app.use(express.json(join(__dirname, "src/public")));
+app.use(express.json());
 
 app.use(loggerUrl);
 
@@ -43,6 +43,8 @@ app.set("views", join(__dirname, "src/views")); //Indicamos las rutas de las vis
 
 app.use("/api/products", rutasProducto);
 
+app.use("/dashboard",rutasVista);
+/*
 app.get("/index", (req, res) =>{ //Seria igual a que la dirección localhost:3000/dashboard abra el index.ejs
     res.render("index") //Renderiza una vista ejs
 });
@@ -61,7 +63,7 @@ app.get("/eliminate", (req, res) =>{ //Seria igual a que la dirección localhost
 
 app.get("/update", (req, res) =>{ //Seria igual a que la dirección localhost:3000/dashboard abra el index.ejs
     res.render("update") //Renderiza una vista ejs
-});
+});*/
 
 
 /*======================

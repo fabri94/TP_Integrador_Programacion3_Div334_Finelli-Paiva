@@ -3,7 +3,17 @@
     <%- include("partials/nav.ejs") %>
     <main class="admin-main">
         <h1>Lista de productos</h1>        
-        <div id="contenedor-productos"></div>
+        <div id="contenedor-productos">
+    <!--Vamos a iterar el array de productos que le pasamos desde el endpoint-->
+            <% productos.forEach(prod=>{ %>
+                <div class="card-producto">
+                    <img src="<%=prod.imagen%>" alt="<%=prod.marca%>">
+                    <h3>Marca: <%=prod.marca%></h3>
+                    <h4>Modelo: <%=prod.modelo%></h4>
+                    <p>$<%=prod.precio%></p>
+                </div>
+            <% }) %>
+    </div>
     </main>
-    <script  src="js/consultar.js"></script>
+    
 <%- include("partials/footer.ejs") %>

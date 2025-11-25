@@ -1,10 +1,19 @@
 import { Router } from "express";
+import ProductModel from "../models/product.models.js"
 const router = Router();
 
 //Rutas de las vistas 
 
-router.get("/index", (req, res) =>{ //Seria igual a que la dirección localhost:3000/dashboard abra el index.ejs
-    res.render("index") //Renderiza una vista ejs
+router.get("/index", async (req, res) =>{ //Seria igual a que la dirección localhost:3000/dashboard abra el index.ejs
+    try {
+        let[resultado] = await ProductModel.selectAllProducts();
+        res.render("index",{
+            productos : resultado
+        });
+    } catch (error) {
+        console.error(error);
+    }
+    //Renderiza una vista ejs
 });
 
 router.get("/search", (req, res) =>{ //Seria igual a que la dirección localhost:3000/dashboard abra el index.ejs
