@@ -4,7 +4,7 @@ let url = "http://localhost:3000/api/products";
 
 contenedorProductos.addEventListener("submit", (event) => {
     event.preventDefault();
-    alert("Formulario no enviado");
+    //alert("Formulario no enviado");
 
     let formData = new FormData(event.target);
     let data = Object.fromEntries(formData.entries());

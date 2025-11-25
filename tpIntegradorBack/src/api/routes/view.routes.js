@@ -4,6 +4,12 @@ const router = Router();
 
 //Rutas de las vistas 
 
+/*
+router.get("/index", (req, res) =>{ //Seria igual a que la dirección localhost:3000/dashboard abra el index.ejs
+    res.render("index") //Renderiza una vista ejs
+});
+*/
+
 router.get("/index", async (req, res) =>{ //Seria igual a que la dirección localhost:3000/dashboard abra el index.ejs
     try {
         let[resultado] = await ProductModel.selectAllProducts();
@@ -15,6 +21,7 @@ router.get("/index", async (req, res) =>{ //Seria igual a que la dirección loca
     }
     //Renderiza una vista ejs
 });
+
 
 router.get("/search", (req, res) =>{ //Seria igual a que la dirección localhost:3000/dashboard abra el index.ejs
     res.render("search") //Renderiza una vista ejs
