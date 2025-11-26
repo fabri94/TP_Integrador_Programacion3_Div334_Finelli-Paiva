@@ -43,7 +43,7 @@ app.set("views", join(__dirname, "src/views")); //Indicamos las rutas de las vis
 
 app.use("/api/products", rutasProducto);
 
-app.use("/dashboard",rutasVista);
+app.use("/",rutasVista);
 /*
 app.get("/index", (req, res) =>{ //Seria igual a que la dirección localhost:3000/dashboard abra el index.ejs
     res.render("index") //Renderiza una vista ejs
