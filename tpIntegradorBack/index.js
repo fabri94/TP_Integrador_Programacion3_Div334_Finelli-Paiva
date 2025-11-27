@@ -4,7 +4,7 @@
 
 import express from "express";
 const app = express();
-import connection from "./src/api/database/db.js";
+//import connection from "./src/api/database/db.js";
 import environments from "./src/api/config/environments.js"; //importamos las variables de entorno 
 const PORT = environments.port;
 const SESSION_KEY = environments.session_key;
@@ -52,25 +52,24 @@ app.set("view engine", "ejs"); //Configuramos ejs como motor de plantillas
 
 app.set("views", join(__dirname, "src/views")); //Indicamos las rutas de las vistas 
 
-
 /*======================
     Rutas
 ======================*/
 
 app.use("/api/products", rutasProducto);
 
-app.use("/",rutasVista);
-
 app.use("/api/users",rutasUsuario);
+
+app.use("/",rutasVista);
 
 /*======================
     Endpoints
 ======================*/
 
 //Endpoint simple de prueba
-app.get("/", (req, res) =>{
+/*app.get("/", (req, res) =>{
     res.send("Hola mundo desde Express.js");
-});
+});*/
 
 app.listen(PORT, ()=>{
     console.log(`Servidor corriendo en el puerto ${PORT}`);
@@ -112,6 +111,7 @@ app.post("/api/users", async (req, res) => {
     }
 });
 */
+/*
 // Endpoint para inicio de sesion, recibimos correo y password con una peticion POST
 app.post("/login", async (req, res) => {
     try {
@@ -169,4 +169,4 @@ app.post("/logout", (req, res) => {
         res.redirect("login"); // Redirigimos a login
     })
 });
-
+*/

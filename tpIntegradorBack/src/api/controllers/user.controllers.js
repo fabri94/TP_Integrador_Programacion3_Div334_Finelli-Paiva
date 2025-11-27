@@ -26,7 +26,7 @@ export const createAdmin = async (req, res) => {
     }
 };
 
-/*
+
 export const loginAdmin = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -79,6 +79,6 @@ export const logoutAdmin = (req, res) => {
             })
         }
 
-        res.redirect("login"); // Redirigimos a login
+        res.redirect("/login"); // Redirigimos a login
     })
-}*/
+}

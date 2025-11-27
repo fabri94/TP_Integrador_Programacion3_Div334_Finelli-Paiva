@@ -9,14 +9,14 @@ const insertAdmin = (email, password, nombre) =>{
     return connection.query(sql, [email, password, nombre]);
 }
 
-/*
+
 const selectAdmin = (email,password)=>{
     let sql = `SELECT * FROM usuarios where email = ? AND password = ?`;
 
     return connection.query(sql, [email, password]);
 }
-*/
+
 export default{
-    insertAdmin
-    //selectAdmin
+    insertAdmin,
+    selectAdmin
 }
