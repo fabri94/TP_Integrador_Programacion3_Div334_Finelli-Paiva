@@ -11,7 +11,7 @@ const SESSION_KEY = environments.session_key;
 
 import cors from "cors";
 import { loggerUrl } from "./src/api/middlewares/middlewares.js";
-import { rutasProducto, rutasVista } from "./src/api/routes/index.js";
+import { rutasProducto, rutasUsuario, rutasVista } from "./src/api/routes/index.js";
 import { join, __dirname } from "./src/api/utils/index.js";
 
 import session from "express-session";
@@ -61,7 +61,7 @@ app.use("/api/products", rutasProducto);
 
 app.use("/",rutasVista);
 
-
+app.use("/api/users",rutasUsuario);
 
 /*======================
     Endpoints
@@ -78,6 +78,8 @@ app.listen(PORT, ()=>{
 
 
 // Endpoint para crear usuarios
+
+/*
 app.post("/api/users", async (req, res) => {
     try {
         const { email, password, nombre } = req.body;
@@ -109,7 +111,7 @@ app.post("/api/users", async (req, res) => {
         })
     }
 });
-
+*/
 // Endpoint para inicio de sesion, recibimos correo y password con una peticion POST
 app.post("/login", async (req, res) => {
     try {
@@ -167,3 +169,4 @@ app.post("/logout", (req, res) => {
         res.redirect("login"); // Redirigimos a login
     })
 });
+
