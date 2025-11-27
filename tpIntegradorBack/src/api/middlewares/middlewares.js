@@ -28,11 +28,18 @@ const validateId = (req, res, next) =>{
     next();
 }
 
-//TO DO: Tal vez se puede hacer un MW para el POST que valide que todos los campos ingresados por el usuario
-//al momento de crear un producto nuevo sean correctos.  Y que ademas valide que ese producto no exista ya en la bbdd
-//(esta ultima validacion tal vez se puede hacer en otro mw por separado)
+
+// Middleware de ruta 
+const requireLogin = (req, res, next) => {
+    // Chequeamos si no existe la sesion de usuario, de ser asi, redirigimos a /login
+    if(!req.session.user) {
+        return res.redirect("/login");
+    }
+    next(); // Sin el next, nunca llega a procesar la respuesta -> response
+};
 
 export{
     loggerUrl,
-    validateId
+    validateId,
+    requireLogin
 }

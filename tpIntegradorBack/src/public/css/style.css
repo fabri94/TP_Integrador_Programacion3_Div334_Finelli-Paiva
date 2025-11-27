@@ -163,7 +163,7 @@ body{
     align-items: center;   
 }
 
-#contenedor-productos-id, #altaProducts-form{
+#contenedor-productos-id, #altaProducts-form, #login-form{
     display: flex;
     justify-content: center;
     flex-direction: column;
