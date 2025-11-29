@@ -2,21 +2,17 @@
         <nav class="admin-nav">
             <!-- BARRA DE NAVEGACIÓN -->
              <ul>
-                <!--
                 <li><a class="html-links" href="index">Ver</a></li>
                 <li><a class="html-links" href="search">Consultar Id</a></li>
                 <li><a class="html-links" href="create">Crear</a></li>
                 <li><a class="html-links" href="update">Modificar</a></li>
                 <li><a class="html-links" href="eliminate">Eliminar</a></li>
-                -->
-                <li><a class="html-links" href="index">Ver</a></li>
-                <li><a class="html-links" href="search">Consultar Id</a></li>
-                <li><a class="html-links" href="create">Crear</a></li>
-                <li><a class="html-links" href="update">Modificar</a></li>
-                <li><a class="html-links" href="eliminate">Eliminar</a></li>
+                <form class="html-links" action="/api/users/logout" method="POST" id="logout">
+                    <input  id="logout" type="image" src="https://img.icons8.com/?size=100&id=59781&format=png&color=FFFFFF" value="Cerrar Sesion" height="18px">
+                </form>
             </ul>
         </nav>
         <form action="/api/users/logout" method="POST" id="logout">
-            <input type="submit" value="Cerrar Sesion">
+            <input id="logout" type="submit" value="Cerrar Sesion">
         </form>
 </header>
