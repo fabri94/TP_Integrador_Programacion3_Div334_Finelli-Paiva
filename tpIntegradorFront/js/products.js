@@ -9,14 +9,34 @@ const nombreUsuario = document.getElementById("nombre-usuario");
 const contenedorProductos = document.getElementById("contenedor-productos");
 const barraBusqueda = document.getElementById("barra-busqueda");
 const filtroCategoria = document.getElementById("filtro-categoria");
+const contenedorCarrito = document.getElementById("contenedor-carrito");
+const importeTotal = document.getElementById("importe-total");
 const url = "http://localhost:3000/api/products";
 
-//Eventos para el buscador y el filtro por categoria
+//Manejadores de eventos para: 
+//barra de busqueda 
+//el filtro por categoria
+//boton de agregar a carrito
 barraBusqueda.addEventListener("input", filtrarProductos);
 filtroCategoria.addEventListener("change", filtrarProductos);
+contenedorProductos.addEventListener("click", (event) => {
+    if (event.target.classList.contains("btn-agregar")) {
+        const idProd = parseInt(event.target.dataset.id);
+        agregarACarrito(idProd);
+    }
+});
+
+contenedorCarrito.addEventListener("click", (event)=>{
+    if(event.target.classList.contains("btn-eliminar")){
+        const idProd = parseInt(event.target.dataset.id)
+        eliminarCarrito(idProd);
+    }
+})
 
 //Declaramos un array vacio en donde se guardaran los productos que recibamos por API desde la BD
 let productos = [];
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let htmlCarrito;
 
 //Mostramos el nombre que ingreso el usuario, en la barra de navegacion
 nombreUsuario.textContent = nombre;
@@ -46,7 +66,7 @@ function mostrarProductos(productos){
             <h3>Marca: ${prod.marca}</h3>
             <h4>Modelo: ${prod.modelo}</h4> 
             <p>Precio: $${prod.precio} ARS</p>
-            <button onclick="agregarCarrito(${prod.id})">Agregar al carrito</button>
+            <button class="btn-agregar" data-id="${prod.id}">Agregar al carrito</button>
         </div>
         `
     })
@@ -70,6 +90,65 @@ function filtrarProductos(){
     }
 
     mostrarProductos(listaProductos);
+}
+
+function mostrarCarrito(){
+    htmlCarrito = "";
+    let total = 0;
+
+    carrito.forEach((producto, index)=>{
+        total += producto.precio * producto.cantidad;
+        htmlCarrito +=`
+        <li class="bloque-item">
+            <p class="nombre-item">
+                ${producto.tipo} ${producto.marca} ${producto.modelo}<br>                
+                Precio: $${producto.precio}<br>
+                Cantidad: ${producto.cantidad}
+            </p>
+            <button class="btn-eliminar"data-id="${index}">Eliminar</button>
+        </li>
+        `;
+    });
+    
+    contenedorCarrito.innerHTML = htmlCarrito;
+    importeTotal.textContent = `Total: $${total}`;
+}
+
+function agregarACarrito(idProducto){
+    const producto = productos.find(p=> p.id === idProducto);
+    const productoEnCarrito = carrito.find(p=>p.id === idProducto);
+
+    if(!productoEnCarrito){
+        carrito.push({
+            ...producto,
+            cantidad: 1
+        });
+    }else{
+        productoEnCarrito.cantidad++;
+    }
+
+    mostrarCarrito();
+    actualizarCarrito();
+}
+
+function eliminarCarrito(idProducto){
+    const productoEnCarrito = carrito.find(p => p.id === idProducto);
+    if(!productoEnCarrito){
+        return;
+    }
+
+    if(productoEnCarrito.cantidad > 1){
+        productoEnCarrito.cantidad--;
+    }else{
+        carrito = carrito.filter(p=>p.id !== idProducto);
+    }
+
+    mostrarCarrito();
+    actualizarCarrito();
+}
+
+function actualizarCarrito(){
+    localStorage.setItem("carrito",JSON.stringify(carrito));
 }
 
 function init(){
