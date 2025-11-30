@@ -11,14 +11,18 @@ const barraBusqueda = document.getElementById("barra-busqueda");
 const filtroCategoria = document.getElementById("filtro-categoria");
 const contenedorCarrito = document.getElementById("contenedor-carrito");
 const importeTotal = document.getElementById("importe-total");
+const vaciarCarrito = document.getElementById("vaciar-carrito");
 const url = "http://localhost:3000/api/products";
 
 //Manejadores de eventos para: 
+//----------------------------
+
 //barra de busqueda 
-//el filtro por categoria
-//boton de agregar a carrito
 barraBusqueda.addEventListener("input", filtrarProductos);
+//el filtro por categoria
 filtroCategoria.addEventListener("change", filtrarProductos);
+
+//boton de agregar a carrito
 contenedorProductos.addEventListener("click", (event) => {
     if (event.target.classList.contains("btn-agregar")) {
         const idProd = parseInt(event.target.dataset.id);
@@ -26,16 +30,19 @@ contenedorProductos.addEventListener("click", (event) => {
     }
 });
 
+//boton de eliminar de carrito
 contenedorCarrito.addEventListener("click", (event)=>{
     if(event.target.classList.contains("btn-eliminar")){
-        const idProd = parseInt(event.target.dataset.id)
+        const idProd = parseInt(event.target.dataset.id);
         eliminarCarrito(idProd);
     }
-})
+});
+//boton de vaciar carrito
+vaciarCarrito.addEventListener("click", limpiarCarrito);
 
 //Declaramos un array vacio en donde se guardaran los productos que recibamos por API desde la BD
 let productos = [];
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let carrito = [];
 let htmlCarrito;
 
 //Mostramos el nombre que ingreso el usuario, en la barra de navegacion
@@ -52,7 +59,6 @@ async function obtenerProductos(){
         console.error(error);
     }
 }
-
 
 // Renderiza dinámicamente la lista de productos en pantalla
 function mostrarProductos(productos){
@@ -92,20 +98,22 @@ function filtrarProductos(){
     mostrarProductos(listaProductos);
 }
 
+//Renderizamos y mostramos el contenido del carrito
 function mostrarCarrito(){
     htmlCarrito = "";
     let total = 0;
 
-    carrito.forEach((producto, index)=>{
+    carrito.forEach((producto)=>{
         total += producto.precio * producto.cantidad;
         htmlCarrito +=`
         <li class="bloque-item">
             <p class="nombre-item">
+                <img src="${producto.imagen}" alt="${producto.marca}">
                 ${producto.tipo} ${producto.marca} ${producto.modelo}<br>                
                 Precio: $${producto.precio}<br>
                 Cantidad: ${producto.cantidad}
             </p>
-            <button class="btn-eliminar"data-id="${index}">Eliminar</button>
+            <button class="btn-eliminar"data-id="${producto.id}">Eliminar</button>
         </li>
         `;
     });
@@ -114,6 +122,7 @@ function mostrarCarrito(){
     importeTotal.textContent = `Total: $${total}`;
 }
 
+//Agregado de producto a carrito. Si el producto ya existia en el carrito se suma una unidad del mismo
 function agregarACarrito(idProducto){
     const producto = productos.find(p=> p.id === idProducto);
     const productoEnCarrito = carrito.find(p=>p.id === idProducto);
@@ -131,6 +140,7 @@ function agregarACarrito(idProducto){
     actualizarCarrito();
 }
 
+//Eliminacion de producto de carrito. Si el producto a eliminar cuenta con mas de una unidad, se resta 
 function eliminarCarrito(idProducto){
     const productoEnCarrito = carrito.find(p => p.id === idProducto);
     if(!productoEnCarrito){
@@ -147,12 +157,32 @@ function eliminarCarrito(idProducto){
     actualizarCarrito();
 }
 
+//Si existe previamente el carrito en local storage, se precarga con los valores ya existentes
+function cargarCarrito(){
+    let carritoLS = localStorage.getItem("carrito");
+    if(!carritoLS){
+        mostrarCarrito();
+    }else{
+        carrito = JSON.parse(carritoLS);
+        mostrarCarrito();
+    }
+}
+
+//Reinicia el array de carrito, lo elimina del local storage, y lo muestra
+function limpiarCarrito(){
+    carrito = [];
+    localStorage.removeItem("carrito");
+    mostrarCarrito();
+}
+
+//Mantiene actualizado el local storage del carrito
 function actualizarCarrito(){
     localStorage.setItem("carrito",JSON.stringify(carrito));
 }
 
 function init(){
     obtenerProductos();
+    cargarCarrito();
 }
 
 init();

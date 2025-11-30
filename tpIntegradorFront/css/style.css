@@ -18,6 +18,19 @@
     width: 150px;
 }
 
+.bloque-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid;
+    width: 400px;
+    height: 180px;
+}
+
+.bloque-item img{
+    width: 50px;
+}
+
 /* GLOBAL */
 :root{
      font-family: "Roboto", sans-serif;
