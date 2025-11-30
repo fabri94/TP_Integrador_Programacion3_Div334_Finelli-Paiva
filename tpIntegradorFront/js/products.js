@@ -12,6 +12,9 @@ const filtroCategoria = document.getElementById("filtro-categoria");
 const contenedorCarrito = document.getElementById("contenedor-carrito");
 const importeTotal = document.getElementById("importe-total");
 const vaciarCarrito = document.getElementById("vaciar-carrito");
+const botonCarrito = document.getElementById("btn-carrito");
+const seccionCarrito = document.getElementById("seccion-carrito"); 
+
 const url = "http://localhost:3000/api/products";
 
 //Manejadores de eventos para: 
@@ -39,6 +42,16 @@ contenedorCarrito.addEventListener("click", (event)=>{
 });
 //boton de vaciar carrito
 vaciarCarrito.addEventListener("click", limpiarCarrito);
+
+botonCarrito.addEventListener("click", () =>{
+    const visible = seccionCarrito.style.display === "block";
+    if(!visible){
+        mostrarCarrito();
+        seccionCarrito.style.display = "block";
+    }else{
+        seccionCarrito.style.display = "none";
+    }
+});
 
 //Declaramos un array vacio en donde se guardaran los productos que recibamos por API desde la BD
 let productos = [];
