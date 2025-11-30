@@ -121,12 +121,11 @@ function mostrarCarrito(){
         htmlCarrito +=`
         <li class="bloque-item">
             <p class="nombre-item">
-                <img src="${producto.imagen}" alt="${producto.marca}">
-                ${producto.tipo} ${producto.marca} ${producto.modelo}<br>                
-                Precio: $${producto.precio}<br>
-                Cantidad: ${producto.cantidad}
+                <img src="${producto.imagen}" alt="${producto.marca}"><br> 
+                <p>${producto.tipo} ${producto.marca} ${producto.modelo}</p>            
+                <p>Precio: $${producto.precio} &nbsp; Cantidad: ${producto.cantidad}</p>
             </p>
-            <button class="btn-eliminar"data-id="${producto.id}">Eliminar</button>
+            <button class="btn-eliminar" data-id="${producto.id}">Eliminar</button>
         </li>
         `;
     });
