@@ -195,6 +195,8 @@ function actualizarCarrito(){
 function init(){
     obtenerProductos();
     cargarCarrito();
+    mostrarCarrito();
+    actualizarCarrito();
 }
 
 init();
