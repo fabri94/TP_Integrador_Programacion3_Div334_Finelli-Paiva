@@ -26,7 +26,7 @@
     <main>
         <h1>Lista de productos</h1>
 
-        <!-- 🔎 BUSCADOR + FILTRO -->
+        <!-- BUSCADOR + FILTRO -->
         <section id="filtros">
             <input id="barra-busqueda" type="text" placeholder="Buscar productos...">
             <select id="filtro-categoria">
@@ -34,12 +34,21 @@
                 <option value="Motherboard">Motherboard</option>
                 <option value="GPU">Placa de video</option>
             </select>
-
-            <button id="apply-filter">Aplicar filtros</button>
         </section>
-
-        <!-- CONTENEDOR DE PRODUCTOS -->
-        <div id="contenedor-productos"></div>
+        <section>
+            <!-- CONTENEDOR DE PRODUCTOS -->
+            <div id="contenedor-productos"></div>
+        </section>
+        <section>
+            <h2>Carrito</h2>
+            <div id="contenedor-carrito">
+                
+            </div>
+            <p id="importe-total">Importe total: $0</p>
+            <div id="boton-carrito">
+                <button id="vaciar-carrito">Vaciar carrito</button>
+            </div>
+        </section>
     </main>
 
 </body>
