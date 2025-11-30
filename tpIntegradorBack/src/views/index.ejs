@@ -8,9 +8,10 @@
             <% productos.forEach(prod=>{ %>
                 <div class="card-producto">
                     <img src="<%=prod.imagen%>" alt="<%=prod.marca%>">
+                    <h3>Id: <%=prod.id%></h3>
                     <h3>Marca: <%=prod.marca%></h3>
                     <h4>Modelo: <%=prod.modelo%></h4>
-                    <p>$<%=prod.precio%></p>
+                    <h4>Precio: <%=prod.precio%></h4>
                 </div>
             <% }) %>
     </div>

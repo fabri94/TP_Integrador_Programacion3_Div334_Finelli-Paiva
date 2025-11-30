@@ -24,6 +24,7 @@ function mostrarProductos(productos){
         <div class="card-producto">
             <img src="${prod.imagen}" alt="${prod.marca}">
             <h3>Marca: ${prod.marca}</h3>
+            <h3>Marca: ${prod.id}</h3>
             <h4>Modelo: ${prod.modelo}</h4> 
             <p>$${prod.precio}</p>
         </div>

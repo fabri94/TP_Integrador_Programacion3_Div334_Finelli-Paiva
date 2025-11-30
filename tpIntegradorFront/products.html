@@ -19,7 +19,7 @@
             </ul> 
             <div id="user-data">
                 <img id="user-logo" src="img\user white.png" alt="user-logo">
-                <p>Username</p>
+                <p id="nombre-usuario"></p>
             </div>
          </nav>
     </header>
@@ -28,11 +28,11 @@
 
         <!-- 🔎 BUSCADOR + FILTRO -->
         <section id="filtros">
-            <input id="search-bar" type="text" placeholder="Buscar productos...">
-            <select id="category-filter">
-                <option value="">Todas las categorías</option>
-                <option value="motherboard">Motherboard</option>
-                <option value="placa">Placa de video</option>
+            <input id="barra-busqueda" type="text" placeholder="Buscar productos...">
+            <select id="filtro-categoria">
+                <option value="todas">Todas las categorías</option>
+                <option value="Motherboard">Motherboard</option>
+                <option value="GPU">Placa de video</option>
             </select>
 
             <button id="apply-filter">Aplicar filtros</button>
