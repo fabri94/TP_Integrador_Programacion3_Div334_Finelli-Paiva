@@ -29,6 +29,8 @@ filtroCategoria.addEventListener("change", filtrarProductos);
 contenedorProductos.addEventListener("click", (event) => {
     if (event.target.classList.contains("btn-agregar")) {
         const idProd = parseInt(event.target.dataset.id);
+        mostrarCarrito();
+        seccionCarrito.style.display = "block";
         agregarACarrito(idProd);
     }
 });
@@ -44,13 +46,8 @@ contenedorCarrito.addEventListener("click", (event)=>{
 vaciarCarrito.addEventListener("click", limpiarCarrito);
 
 botonCarrito.addEventListener("click", () =>{
-    const visible = seccionCarrito.style.display === "block";
-    if(!visible){
-        mostrarCarrito();
-        seccionCarrito.style.display = "block";
-    }else{
-        seccionCarrito.style.display = "none";
-    }
+    seccionCarrito.style.display = "none";
+    limpiarCarrito();
 });
 
 //Declaramos un array vacio en donde se guardaran los productos que recibamos por API desde la BD
