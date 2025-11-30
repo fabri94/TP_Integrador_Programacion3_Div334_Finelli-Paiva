@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CONEXIONES -->
-    <script defer src="js/main.js"></script>
+    <script defer src="js/products.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <title>PRODUCTOS</title>
 </head>
@@ -15,18 +15,30 @@
             <img id="spartan-logo" src="img\liogo spartan white.png" alt="spartan-logo">
             <ul>
                 <li>☰</li>
-                <li>Productos  </li>
                 <li>Carrito</li>
-                <li>Tickets</li>
             </ul> 
             <div id="user-data">
                 <img id="user-logo" src="img\user white.png" alt="user-logo">
-                <p>Username</p>
+                <p id="nombre-usuario"></p>
             </div>
          </nav>
     </header>
     <main>
-        <h1>Lista de productos</h1>        
+        <h1>Lista de productos</h1>
+
+        <!-- 🔎 BUSCADOR + FILTRO -->
+        <section id="filtros">
+            <input id="barra-busqueda" type="text" placeholder="Buscar productos...">
+            <select id="filtro-categoria">
+                <option value="todas">Todas las categorías</option>
+                <option value="Motherboard">Motherboard</option>
+                <option value="GPU">Placa de video</option>
+            </select>
+
+            <button id="apply-filter">Aplicar filtros</button>
+        </section>
+
+        <!-- CONTENEDOR DE PRODUCTOS -->
         <div id="contenedor-productos"></div>
     </main>
 
