@@ -1,9 +1,8 @@
-console.log("JS cargado");
-
+//Declaramos variables del DOM
 const formNombre = document.getElementById("form-nombre");
 const inputNombre = document.getElementById("nombreUsuario");
 
-
+//Maneja el envío del formulario del index.html
 formNombre.addEventListener("submit", (event) => {
     event.preventDefault(); // evita que se recargue la página
 
