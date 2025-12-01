@@ -46,8 +46,13 @@ contenedorCarrito.addEventListener("click", (event)=>{
 vaciarCarrito.addEventListener("click", limpiarCarrito);
 
 botonCarrito.addEventListener("click", () =>{
-    seccionCarrito.style.display = "none";
-    limpiarCarrito();
+    const visible = seccionCarrito.style.display === "block";
+    if(!visible){
+        mostrarCarrito();
+        seccionCarrito.style.display = "block";
+    }else{
+        seccionCarrito.style.display = "none";
+    }
 });
 
 //Declaramos un array vacio en donde se guardaran los productos que recibamos por API desde la BD
