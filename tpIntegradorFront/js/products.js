@@ -14,6 +14,7 @@ const importeTotal = document.getElementById("importe-total");
 const vaciarCarrito = document.getElementById("vaciar-carrito");
 const botonCarrito = document.getElementById("btn-carrito");
 const seccionCarrito = document.getElementById("seccion-carrito"); 
+const botonImprimirTicket = document.getElementById("imprimir-ticket");
 
 const url = "http://localhost:3000/api/products";
 
@@ -54,6 +55,8 @@ botonCarrito.addEventListener("click", () =>{
         seccionCarrito.style.display = "none";
     }
 });
+
+botonImprimirTicket.addEventListener("click",imprimirTicket);
 
 //Declaramos un array vacio en donde se guardaran los productos que recibamos por API desde la BD
 let productos = [];
@@ -192,6 +195,41 @@ function limpiarCarrito(){
 //Mantiene actualizado el local storage del carrito
 function actualizarCarrito(){
     sessionStorage.setItem("carrito",JSON.stringify(carrito));
+}
+
+function imprimirTicket(){
+    //alert("test");
+    console.table(carrito);
+
+    const idProductos = [];
+
+    const{jsPDF} = window.jspdf;
+
+    const doc = new jsPDF();
+
+    let y = 10;
+    
+    doc.setFontSize(10);
+
+    doc.text("Spartan Hardware", 10, y);
+    
+    y += 10;
+
+    carrito.forEach(prod => {
+        idProductos.push(prod.id); //llenamos el array de ids de producto
+
+        doc.text(`${prod.tipo} ${prod.marca} ${prod.modelo} - $${prod.precio}ARS`, 20, y);
+
+        y += 7;
+    })
+
+    const precioTotal = carrito.reduce((total,prod) => total + parseInt(prod.precio),0);
+
+    y+=5;
+
+    doc.text(`Total $${precioTotal}ARS`,10,y);
+
+    doc.save("ticket.pdf");
 }
 
 function init(){
