@@ -77,7 +77,7 @@ function mostrarProductos(productos){
 
     formContenedor.addEventListener("submit", (event) => {
         event.preventDefault();
-        alert("Formulario no enviado");
+        //alert("Formulario no enviado");
 
         let formData = new FormData(event.target);
         let data = Object.fromEntries(formData.entries());
