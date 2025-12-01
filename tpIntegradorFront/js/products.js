@@ -1,4 +1,4 @@
-const nombre = localStorage.getItem("nombreUsuario");
+const nombre = sessionStorage.getItem("nombreUsuario");
 //Evitamos que el usuario no pueda ingresar de forma directa a products.html sino cargo su nombre previamente
 if (!nombre) {
     window.location.href = "index.html";
@@ -173,7 +173,7 @@ function eliminarCarrito(idProducto){
 
 //Si existe previamente el carrito en local storage, se precarga con los valores ya existentes
 function cargarCarrito(){
-    let carritoLS = localStorage.getItem("carrito");
+    let carritoLS = sessionStorage.getItem("carrito");
     if(!carritoLS){
         mostrarCarrito();
     }else{
@@ -185,13 +185,13 @@ function cargarCarrito(){
 //Reinicia el array de carrito, lo elimina del local storage, y lo muestra
 function limpiarCarrito(){
     carrito = [];
-    localStorage.removeItem("carrito");
+    sessionStorage.removeItem("carrito");
     mostrarCarrito();
 }
 
 //Mantiene actualizado el local storage del carrito
 function actualizarCarrito(){
-    localStorage.setItem("carrito",JSON.stringify(carrito));
+    sessionStorage.setItem("carrito",JSON.stringify(carrito));
 }
 
 function init(){

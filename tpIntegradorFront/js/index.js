@@ -14,7 +14,7 @@ formNombre.addEventListener("submit", (event) => {
     }
 
     //Guardo nombre del usuario ingresado en Local Storage
-    localStorage.setItem("nombreUsuario", nombre);
+    sessionStorage.setItem("nombreUsuario", nombre);
 
     //Redirigimos al usuario a nuestro products.html
     window.location.href = "products.html";
