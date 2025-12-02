@@ -7,6 +7,7 @@
     <script defer src="js/products.js"></script>
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <title>PRODUCTOS</title>
 </head>
 <body>
@@ -16,16 +17,19 @@
             <img id="spartan-logo" src="img\liogo spartan white.png" alt="spartan-logo">
             <ul>
                 <li>☰</li>
-                <li id="btn-carrito">Carrito</li>
+                <li id="btn-carrito">
+                    Carrito: <span id="contador-carrito"> 0 productos</span>
+                </li>
             </ul> 
             <div id="user-data">
                 <img id="user-logo" src="img\user white.png" alt="user-logo">
+                <a>Bienvenido</a>
                 <p id="nombre-usuario"></p>
             </div>
          </nav>
     </header>
     <main>
-        <h1>Lista de productos</h1>
+        <h1>Nuestros productos</h1>
 
         <!-- BUSCADOR + FILTRO -->
         <section id="filtros">
@@ -46,12 +50,12 @@
                 
             </div>
             <p id="importe-total">Importe total: $0</p>
-            <div id="boton-carrito">
+            <div id="botones-carrito">
                 <button id="vaciar-carrito">Vaciar carrito</button>
                 <button id="imprimir-ticket">Imprimir ticket</button>
             </div>
         </section>
     </main>
-
+    <footer>Autores: Finelli, Fabrizio - Paiva, Alejo</footer>
 </body>
 </html>
