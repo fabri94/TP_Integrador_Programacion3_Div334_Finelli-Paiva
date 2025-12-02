@@ -25,7 +25,7 @@
     align-items: center;
     border: 2px solid;
     width: 450px;
-    height: 180px;
+    height: auto;
     padding: 5px;
     margin: 10px;
 }
@@ -49,9 +49,28 @@ p{
     background: #ffffff33; /* semitransparente */
 }
 
+#seccion-carrito{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#contenedor-carrito {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#botones-carrito {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 15px;
+}
 /* GLOBAL */
 :root{
-     font-family: "Roboto", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-optical-sizing: auto;
     font-weight: 300;
     font-style: normal;
@@ -62,7 +81,10 @@ p{
 /* BODY */
 
 body{
-    margin: 0px;
+    min-height: 100vh; /* ocupa toda la pantalla */
+    display: flex;
+    flex-direction: column;
+    margin: 0;
 }
 
 /* BARRA DE NAVEGACIÓN */
@@ -98,6 +120,10 @@ li{
 }
 
 /* MAIN */
+
+main {
+    flex: 1; /* empuja el footer hacia abajo */
+}
 
 main, #title, #login{
     display: flex;
@@ -161,48 +187,12 @@ button:hover {
   background-color: #2f9400;
 }
 
-/* ||||||||||||||||||||||||||||||||||||||||||||||| ADMIN VIEW ||||||||||||||||||||||||||||||||||||||||||||||| */
-
-
-/* BARRA DE NAVEGACIÓN */
-
-
-.admin-nav{
-    background-color: #284b63;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1 1 auto;
-}
-.html-links{
-    color: white;
-    text-decoration: none;
+/*FOOTER*/
+footer { 
+    background-color: #2f9400;
+    padding: 1rem; 
+    text-align: center; 
+    color: white; 
+    margin-top: auto; 
 }
 
-/* LINKS */
-.html-links:hover{
-    text-decoration: underline;
-}
-
-/* MAIN*/
-
-body{
-    background-color: #353535;
-}
-
-.admin-main, .admin-create{
-    color: white;
-    display: flex;
-    align-items: center;   
-}
-
-#contenedor-productos-id, #altaProducts-form{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
-
-label,input{
-    margin: 0.2rem;
-}

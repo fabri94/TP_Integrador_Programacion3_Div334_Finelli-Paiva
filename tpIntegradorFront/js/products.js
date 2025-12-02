@@ -15,6 +15,7 @@ const vaciarCarrito = document.getElementById("vaciar-carrito");
 const botonCarrito = document.getElementById("btn-carrito");
 const seccionCarrito = document.getElementById("seccion-carrito"); 
 const botonImprimirTicket = document.getElementById("imprimir-ticket");
+const contadorCarrito = document.getElementById("contador-carrito");
 
 const url = "http://localhost:3000/api/products";
 
@@ -155,6 +156,7 @@ function agregarACarrito(idProducto){
 
     mostrarCarrito();
     actualizarCarrito();
+    actualizarContadorCarrito();
 }
 
 //Eliminacion de producto de carrito. Si el producto a eliminar cuenta con mas de una unidad, se resta 
@@ -172,6 +174,7 @@ function eliminarCarrito(idProducto){
 
     mostrarCarrito();
     actualizarCarrito();
+    actualizarContadorCarrito();
 }
 
 //Si existe previamente el carrito en local storage, se precarga con los valores ya existentes
@@ -182,14 +185,25 @@ function cargarCarrito(){
     }else{
         carrito = JSON.parse(carritoLS);
         mostrarCarrito();
+        actualizarContadorCarrito();
     }
 }
+
+function actualizarContadorCarrito() {
+    if(carrito.length === 1){
+        contadorCarrito.textContent = carrito.length + " producto";
+    }else{
+        contadorCarrito.textContent = carrito.length + " productos";
+    }
+}
+
 
 //Reinicia el array de carrito, lo elimina del local storage, y lo muestra
 function limpiarCarrito(){
     carrito = [];
     sessionStorage.removeItem("carrito");
     mostrarCarrito();
+    actualizarContadorCarrito();
 }
 
 //Mantiene actualizado el local storage del carrito
@@ -198,7 +212,10 @@ function actualizarCarrito(){
 }
 
 function imprimirTicket(){
-    //alert("test");
+    if(carrito.length === 0){
+        alert("Debe agregar al menos un producto antes de imprimir");
+        return;
+    }
     console.table(carrito);
 
     const idProductos = [];
@@ -283,6 +300,7 @@ function init(){
     cargarCarrito();
     mostrarCarrito();
     actualizarCarrito();
+    actualizarContadorCarrito();
 }
 
 init();
