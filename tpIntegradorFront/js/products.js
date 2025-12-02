@@ -268,14 +268,13 @@ async function registrarVenta(precioTotal, idProductos){
             sessionStorage.removeItem("carrito");
             window.location.href = "index.html";
         }else{
-            console.log(resultado);
             console.error(resultado);
-            alert("Error en la venta")
+            alert("Error en la venta: "+resultado.message);
         }
 
     }catch(error){
         console.log("Error al enviar los datos", error);
-        alert("Error al regsitrar la venta");
+        alert("Error al registrar la venta");
     }
 }
 
