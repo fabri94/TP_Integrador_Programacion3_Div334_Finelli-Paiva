@@ -15,6 +15,7 @@ import { rutasProducto, rutasUsuario, rutasVista } from "./src/api/routes/index.
 import { join, __dirname } from "./src/api/utils/index.js";
 
 import session from "express-session";
+import connection from "./src/api/database/db.js";
 
 /*======================
     Middlewares
@@ -70,6 +71,40 @@ app.use("/",rutasVista);
 /*app.get("/", (req, res) =>{
     res.send("Hola mundo desde Express.js");
 });*/
+
+app.post("/api/sales", async(req, res) =>{
+    try{
+        const{ nombreUsuario, precioTotal, fechaEmision, productos } = req.body;
+        if(!nombreUsuario || precioTotal===undefined || precioTotal === null || !precioTotal || !fechaEmision || !Array.isArray(productos) || productos.length===0){
+            return res.status(400).json({
+                message: `Datos invalidos. Completar todos los campos correctamente`
+            });
+        }
+
+        const sqlTicket = `INSERT INTO tickets (nombreUsuario, precioTotal, fechaEmision) VALUES (?,?,?)`
+        
+        const [resultadoTicket] = await connection.query(sqlTicket, [nombreUsuario, precioTotal,fechaEmision]);
+
+        const ticketId = resultadoTicket.insertId;
+
+        const sqlProductosTickets = `INSERT INTO productos_tickets (idProducto, idTicket) VALUES (?,?)`
+
+        for(const idProducto of productos){
+            await connection.query(sqlProductosTickets, [idProducto, ticketId]);
+        }
+
+        res.status(201).json({
+            message: "Venta registrada con exito",
+            ticketId: ticketId
+        });
+    }catch(error){
+        console.error(error);
+        res.status(500).json({
+            message : "Error interno del servidor",
+            error: error.message
+        })
+    }
+})
 
 app.listen(PORT, ()=>{
     console.log(`Servidor corriendo en el puerto ${PORT}`);
