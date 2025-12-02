@@ -230,6 +230,53 @@ function imprimirTicket(){
     doc.text(`Total $${precioTotal}ARS`,10,y);
 
     doc.save("ticket.pdf");
+    registrarVenta(precioTotal,idProductos);
+}
+
+async function registrarVenta(precioTotal, idProductos){
+    try{
+        const fecha = new Date();
+        console.log(fecha);
+        console.log(nombre);
+        console.log(precioTotal);
+        console.log(idProductos);
+
+        const fechaFormateada = fecha.toISOString().slice(0,19).replace("T", " ");
+
+        const data ={
+            nombreUsuario : nombre,
+            precioTotal: precioTotal,
+            fechaEmision : fechaFormateada,
+            productos : idProductos
+        };
+
+        const respuesta = await fetch("http://localhost:3000/api/sales", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const resultado = await respuesta.json();
+
+        if(respuesta.ok){
+            console.log("Venta registrada: ", resultado);
+            alert(resultado.message);
+
+            sessionStorage.removeItem("nombreUsuario");
+            sessionStorage.removeItem("carrito");
+            window.location.href = "index.html";
+        }else{
+            console.log(resultado);
+            console.error(resultado);
+            alert("Error en la venta")
+        }
+
+    }catch(error){
+        console.log("Error al enviar los datos", error);
+        alert("Error al regsitrar la venta");
+    }
 }
 
 function init(){
